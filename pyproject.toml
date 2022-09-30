@@ -1,0 +1,74 @@
+[tool.poetry]
+authors = [
+  "Michal Ploski <mploski@amazon.com>",
+  "Dominik Goby <dgoby@amazon.de>",
+  "Furkan Oruc <furoruc@amazon.de>",
+  "Darius Kunce <kunce@amazon.ch>",
+]
+description = "Example demo application using hexagonal architecture"
+name = "hexagonal-architecture-python"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+aws-cdk-lib = "2.29.0"
+'aws-cdk.aws-lambda-python-alpha' = "2.29.0a0"
+constructs = "^10.0.108"
+python = ">3.8,<4.0.0"
+
+[tool.poetry.dev-dependencies]
+assertpy = "^1.1"
+pytest = "^7.1.1"
+pytest-mock = "^3.7.0"
+moto = "3.1.16"
+pip-licenses = "^3.5.4"
+pyproject-flake8 = "^0.0.1-alpha.4"
+black = {version = "^22.6.0", allow-prereleases = true}
+flake8-black = "^0.3.3"
+isort = "^5.10.1"
+cdk-nag = "^2.17.1"
+bandit = "^1.7.4"
+toml = "^0.10.2"
+
+[tool.poetry.dependencies.hexagonal-architecture-python-external-libraries]
+path = "./app/libraries"
+
+[tool.black]
+line-length = 88
+target-version = ['py37', 'py38', 'py39']
+include = '\.pyi?$'
+
+[tool.flake8]
+max-line-length = 100
+per-file-ignores =[
+'__init__.py:F401'
+]
+count = true
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_return_any = false
+warn_unreachable = true
+show_error_codes = true
+pretty = true
+
+[[tool.mypy.overrides]]
+module = [
+    'botocore.*',
+    'aws_lambda_powertools.*',
+    'boto3.*',
+    'pytest',
+    'aws_cdk.*',
+    'constructs',
+    'assertpy',
+    'pydantic',
+    'moto',
+    'retry',
+    'requests',
+    'mypy_boto3_dynamodb'
+]
+ignore_missing_imports = true
