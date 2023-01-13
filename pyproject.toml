@@ -14,6 +14,7 @@ aws-cdk-lib = "2.29.0"
 'aws-cdk.aws-lambda-python-alpha' = "2.29.0a0"
 constructs = "^10.0.108"
 python = ">3.8,<4.0.0"
+GitPython = "^3.1.30"
 
 [tool.poetry.dev-dependencies]
 assertpy = "^1.1"
