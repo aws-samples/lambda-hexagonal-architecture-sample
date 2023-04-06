@@ -125,6 +125,17 @@ All of this packages are specified pre-configured in `pyproject.toml` file. Afte
 
 ## Deploying the application
 
+### A note on security
+
+This is a reference architecture to demonstrate hexagonal architecture in AWS Lambda. Please consider the following security topics to use it in a production environment: 
+* Use AWS KMS Customer Managed Keys to encrypt [AWS CloudWatch log groups](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/encrypt-log-data-kms.html) and [Amazon DynamoDB tables](https://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html).
+* Configure [AWS WAF for the Amazon API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-aws-waf.html) to allow access only from your organization's network.
+* Consider other options for Amazon API Gateway authorization if IAM does not fit your needs: [Amazon Cognito user pool](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-integrate-with-cognito.html) or [API Gateway Lambda authorizer](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html).
+* Use [Amazon DynamoDB backups](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/BackupRestore.html).
+* Configure Amazon Lambdas with a [VPC deployment](https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html) to keep network traffic inside the cloud. 
+
+### Deploy steps
+
 CDK is configured to package each project as a Lambda or a Layer using the folder structure from the repository. This way, unit tests can reference modules directly without loading them dynamically, and the deployed application maintains the same folder structure in the AWS Lambda. 
 
 Follow these steps to deploy the application to an AWS account ([Detailed information](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html)):
